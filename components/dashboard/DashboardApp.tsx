@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useTransition } from "react";
-import type { OrderStatus, OrderSource } from "@prisma/client";
+import type { OrderStatus, OrderSource } from "@/app/generated/prisma/client";
 import type {
   CustomerRecord,
   DashboardStats,

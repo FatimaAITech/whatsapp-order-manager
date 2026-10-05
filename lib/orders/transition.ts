@@ -1,4 +1,4 @@
-import type { OrderStatus } from "@prisma/client";
+import type { OrderStatus } from "@/app/generated/prisma/client";
 
 export const ORDER_STATUSES = [
   "PENDING",

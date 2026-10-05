@@ -1,4 +1,4 @@
-import type { OrderSource, OrderStatus, Prisma } from "@prisma/client";
+import type { OrderSource, OrderStatus, Prisma } from "@/app/generated/prisma/client";
 import { getPrisma } from "@/lib/db/prisma";
 import { AppError } from "@/lib/errors";
 import { canTransition } from "@/lib/orders/transition";

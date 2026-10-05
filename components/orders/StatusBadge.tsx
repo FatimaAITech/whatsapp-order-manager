@@ -1,4 +1,4 @@
-import type { OrderStatus } from "@prisma/client";
+import type { OrderStatus } from "@/app/generated/prisma/client";
 import { statusLabel } from "@/lib/orders/transition";
 
 const COLORS: Record<OrderStatus, string> = {

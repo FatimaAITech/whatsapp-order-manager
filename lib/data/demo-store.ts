@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import bcrypt from "bcryptjs";
-import type { MemberRole, OrderSource, OrderStatus } from "@prisma/client";
+import type { MemberRole, OrderSource, OrderStatus } from "@/app/generated/prisma/client";
 import { demoCredentials } from "@/lib/config";
 import { AppError } from "@/lib/errors";
 import { canTransition } from "@/lib/orders/transition";

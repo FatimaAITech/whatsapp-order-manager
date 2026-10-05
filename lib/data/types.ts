@@ -1,4 +1,4 @@
-import type { MemberRole, OrderSource, OrderStatus } from "@prisma/client";
+import type { MemberRole, OrderSource, OrderStatus } from "@/app/generated/prisma/client";
 
 export type SessionUser = {
   userId: string;

@@ -19,7 +19,7 @@ import {
 import { encryptSecret } from "@/lib/crypto";
 import { toMinor } from "@/lib/format";
 import { sendWhatsAppText, statusMessage } from "@/lib/whatsapp/client";
-import type { OrderStatus } from "@prisma/client";
+import type { OrderStatus } from "@/app/generated/prisma/client";
 
 export async function loginAction(formData: FormData) {
   try {
