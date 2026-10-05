@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String       @id @default(uuid())
+  email        String       @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime     @default(now())
+  memberships  Membership[]
+  orderEvents  OrderEvent[]
+}
+
+model Organization {
+  id          String              @id @default(uuid())
+  name        String
+  slug        String              @unique
+  currency    String              @default("PKR")
+  timezone    String              @default("Asia/Karachi")
+  plan        String              @default("free")
+  createdAt   DateTime            @default(now())
+  customers   Customer[]
+  memberships Membership[]
+  orders      Order[]
+  products    Product[]
+  whatsapp    WhatsAppConnection?
+}
+
+model Membership {
+  id             String       @id @default(uuid())
+  userId         String
+  organizationId String
+  role           MemberRole
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, organizationId])
+}
+
+model WhatsAppConnection {
+  id                   String       @id @default(uuid())
+  organizationId       String       @unique
+  wabaId               String?
+  phoneNumberId        String?      @unique
+  encryptedAccessToken String?
+  webhookVerifyToken   String?
+  status               String       @default("disconnected")
+  organization         Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+model Product {
+  id             String       @id @default(uuid())
+  organizationId String
+  name           String
+  description    String?
+  priceMinor     Int
+  currency       String       @default("PKR")
+  sku            String?
+  isActive       Boolean      @default(true)
+  deletedAt      DateTime?
+  createdAt      DateTime     @default(now())
+  orderItems     OrderItem[]
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, isActive])
+}
+
+model Customer {
+  id             String       @id @default(uuid())
+  organizationId String
+  waId           String
+  displayName    String
+  notes          String?
+  lastMessageAt  DateTime?
+  createdAt      DateTime     @default(now())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  orders         Order[]
+
+  @@unique([organizationId, waId])
+}
+
+model Order {
+  id                String       @id @default(uuid())
+  organizationId    String
+  customerId        String
+  status            OrderStatus  @default(PENDING)
+  source            OrderSource  @default(MANUAL)
+  notes             String?
+  needsReview       Boolean      @default(false)
+  totalMinor        Int          @default(0)
+  currency          String       @default("PKR")
+  externalMessageId String?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  customer          Customer     @relation(fields: [customerId], references: [id])
+  organization      Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  events            OrderEvent[]
+  items             OrderItem[]
+
+  @@index([organizationId, status, createdAt])
+}
+
+model OrderItem {
+  id             String   @id @default(uuid())
+  orderId        String
+  productId      String?
+  nameSnapshot   String
+  unitPriceMinor Int
+  qty            Int
+  order          Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product        Product? @relation(fields: [productId], references: [id])
+}
+
+model OrderEvent {
+  id          String       @id @default(uuid())
+  orderId     String
+  fromStatus  OrderStatus?
+  toStatus    OrderStatus
+  actorUserId String?
+  meta        Json?
+  createdAt   DateTime     @default(now())
+  actor       User?        @relation(fields: [actorUserId], references: [id])
+  order       Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model ProcessedWebhook {
+  id        String   @id @default(uuid())
+  messageId String   @unique
+  createdAt DateTime @default(now())
+}
+
+enum MemberRole {
+  OWNER
+  STAFF
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum OrderSource {
+  WHATSAPP
+  MANUAL
+}

@@ -1,0 +1,198 @@
+{
+  "users": [
+    {
+      "id": "user-demo",
+      "email": "demo@shop.local",
+      "passwordHash": "$2b$10$LXQs24xDsyUV7/598w0FLOOt9bIyiA00OTAARbvdPhBEMCskreoO2",
+      "name": "Demo Owner"
+    }
+  ],
+  "orgs": [
+    {
+      "id": "org-demo",
+      "name": "Fatima kitchen",
+      "slug": "demo-kitchen",
+      "currency": "PKR"
+    }
+  ],
+  "memberships": [
+    {
+      "userId": "user-demo",
+      "organizationId": "org-demo",
+      "role": "OWNER"
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-1",
+      "organizationId": "org-demo",
+      "name": "Chicken Biryani",
+      "description": "Family tray",
+      "priceMinor": 85000,
+      "currency": "PKR",
+      "sku": "BIRYANI",
+      "isActive": true,
+      "deletedAt": null,
+      "createdAt": "2026-10-03T12:01:03.438Z"
+    },
+    {
+      "id": "prod-2",
+      "organizationId": "org-demo",
+      "name": "Naan",
+      "description": "Tandoor naan",
+      "priceMinor": 4000,
+      "currency": "PKR",
+      "sku": "NAAN",
+      "isActive": true,
+      "deletedAt": null,
+      "createdAt": "2026-10-03T12:01:03.438Z"
+    },
+    {
+      "id": "prod-3",
+      "organizationId": "org-demo",
+      "name": "Mango Lassi",
+      "description": "16 oz",
+      "priceMinor": 18000,
+      "currency": "PKR",
+      "sku": "LASSI",
+      "isActive": true,
+      "deletedAt": null,
+      "createdAt": "2026-10-03T12:01:03.438Z"
+    },
+    {
+      "organizationId": "org-demo",
+      "createdAt": "2026-10-04T13:13:21.258Z",
+      "deletedAt": null,
+      "name": "chowmin",
+      "description": "free sauce",
+      "priceMinor": 90000,
+      "currency": "PKR",
+      "sku": "chicken",
+      "isActive": true
+    }
+  ],
+  "customers": [
+    {
+      "id": "cust-1",
+      "organizationId": "org-demo",
+      "waId": "923001112233",
+      "displayName": "Ayesha Khan",
+      "notes": "Prefers evening delivery",
+      "lastMessageAt": "2026-10-03T12:01:03.437Z",
+      "createdAt": "2026-10-03T12:01:03.437Z"
+    },
+    {
+      "id": "cust-2",
+      "organizationId": "org-demo",
+      "waId": "923004445566",
+      "displayName": "Bilal Ahmed",
+      "notes": null,
+      "lastMessageAt": "2026-10-03T12:01:03.438Z",
+      "createdAt": "2026-10-03T12:01:03.438Z"
+    },
+    {
+      "id": "a5f70459-2efe-4a90-b747-fbc4ec50a195",
+      "organizationId": "org-demo",
+      "waId": "1234567891",
+      "displayName": "fatima",
+      "notes": "second floor flat no 32 ",
+      "lastMessageAt": "2026-10-03T12:22:21.152Z",
+      "createdAt": "2026-10-03T12:22:21.152Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "order-1",
+      "organizationId": "org-demo",
+      "customerId": "cust-1",
+      "status": "DELIVERED",
+      "source": "WHATSAPP",
+      "notes": "No extra spice",
+      "needsReview": false,
+      "totalMinor": 93000,
+      "currency": "PKR",
+      "externalMessageId": null,
+      "createdAt": "2026-10-03T12:01:03.438Z",
+      "updatedAt": "2026-10-04T15:00:04.329Z",
+      "items": [
+        {
+          "id": "item-1",
+          "orderId": "order-1",
+          "productId": "prod-1",
+          "nameSnapshot": "Chicken Biryani",
+          "unitPriceMinor": 85000,
+          "qty": 1
+        },
+        {
+          "id": "item-2",
+          "orderId": "order-1",
+          "productId": "prod-2",
+          "nameSnapshot": "Naan",
+          "unitPriceMinor": 4000,
+          "qty": 2
+        }
+      ],
+      "events": [
+        {
+          "id": "evt-1",
+          "orderId": "order-1",
+          "fromStatus": null,
+          "toStatus": "PENDING",
+          "actorUserId": "user-demo",
+          "meta": {
+            "source": "seed"
+          },
+          "createdAt": "2026-10-03T12:01:03.438Z"
+        },
+        {
+          "id": "c7e83aee-27d7-48a0-87d4-2344fa7c36e7",
+          "orderId": "order-1",
+          "fromStatus": "PENDING",
+          "toStatus": "CONFIRMED",
+          "actorUserId": "user-demo",
+          "meta": {},
+          "createdAt": "2026-10-04T13:21:51.081Z"
+        },
+        {
+          "id": "f4a4c15c-c026-498c-a48d-3ebb9a1203b6",
+          "orderId": "order-1",
+          "fromStatus": "CONFIRMED",
+          "toStatus": "PROCESSING",
+          "actorUserId": "user-demo",
+          "meta": {},
+          "createdAt": "2026-10-04T15:00:00.389Z"
+        },
+        {
+          "id": "a3796961-d607-4746-8987-56cff261e850",
+          "orderId": "order-1",
+          "fromStatus": "PROCESSING",
+          "toStatus": "SHIPPED",
+          "actorUserId": "user-demo",
+          "meta": {},
+          "createdAt": "2026-10-04T15:00:02.645Z"
+        },
+        {
+          "id": "692b249f-5961-4491-85c1-f18dbac43ef8",
+          "orderId": "order-1",
+          "fromStatus": "SHIPPED",
+          "toStatus": "DELIVERED",
+          "actorUserId": "user-demo",
+          "meta": {},
+          "createdAt": "2026-10-04T15:00:04.329Z"
+        }
+      ]
+    }
+  ],
+  "whatsapp": [
+    {
+      "id": "wa-1",
+      "organizationId": "org-demo",
+      "wabaId": null,
+      "phoneNumberId": null,
+      "encryptedAccessToken": null,
+      "webhookVerifyToken": "change-me-webhook-verify-token",
+      "status": "disconnected"
+    }
+  ],
+  "processedWebhooks": []
+}
